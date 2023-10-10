@@ -8,7 +8,7 @@ const App = () =>{
   </View>
  )
 }
-
+//comment
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
