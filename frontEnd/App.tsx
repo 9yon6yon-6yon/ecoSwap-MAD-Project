@@ -12,7 +12,7 @@ const stack = createStackNavigator();
 const bottom_tab = createBottomTabNavigator();
 const BasicDashboardScreen = () => {
   return (
-    <stack.Navigator screenOptions={{ headerShown: false }}>
+    <stack.Navigator initialRouteName="Counter" screenOptions={{ headerShown: false }}>
       <stack.Screen name="Counter" component={CounterPage} />
       <stack.Screen name="Login" component={LoginPage} />
     </stack.Navigator>

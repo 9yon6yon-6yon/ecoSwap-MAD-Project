@@ -1,34 +1,58 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setisLoggedIn] = useState(false);
 
   const handleLogin = () => {
 
     console.log('Username: ', username);
     console.log('Password: ', password);
-
-
+    if (username === "Asif" && password === "admin") {
+      setisLoggedIn(true);
+    }
+    else {
+      setisLoggedIn(false);
+    }
+  };
+  const navigate = useNavigation();
+  const showLoginPage = () => {
+    return (
+      <>
+        <Text style={styles.label}>Username:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setUsername}
+          value={username}
+        />
+        <Text style={styles.label}>Password:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={setPassword}
+          value={password}
+          secureTextEntry={true}
+        />
+        <Button title="Login" onPress={handleLogin} />
+      </>
+    )
+  };
+  const showSuccessMessage = () => {
+    return (
+      <>
+        <Text style={styles.label}> Successfully Logged in brother....</Text>
+        <Button title="Back" onPress={() => { navigate.goBack() }}></Button>
+      </>
+    )
   };
 
+
   return (
+
     <View style={styles.container}>
-      <Text style={styles.label}>Username:</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setUsername}
-        value={username}
-      />
-      <Text style={styles.label}>Password:</Text>
-      <TextInput
-        style={styles.input}
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry={true}
-      />
-      <Button title="Login" onPress={handleLogin} />
+      {!isLoggedIn ? showLoginPage(): showSuccessMessage()}
     </View>
   );
 };
