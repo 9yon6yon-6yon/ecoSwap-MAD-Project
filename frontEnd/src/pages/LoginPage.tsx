@@ -79,3 +79,8 @@ const styles = StyleSheet.create({
 });
 
 export default LoginPage;
+// Presentation
+// First class after MID
+// partial Decelopment process 
+// Prototype ------> Figma/Adobe XD
+// Problem Statement -------> Present the idea
