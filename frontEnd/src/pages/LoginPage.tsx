@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [isLoggedIn, setisLoggedIn] = useState(false);
 
-  const handleLogin = (auth: IAUthContext) => {
+  const handleLogin = () => {
     axios.get("https://localhost:3000/health").then((res:any)=>{
       console.log(res)
     })
