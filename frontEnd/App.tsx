@@ -9,6 +9,7 @@ import LoginPage from "./src/pages/LoginPage";
 import SettingsPage from "./src/pages/SettingsPage";
 import NationalizePage from "./src/pages/NationalizePage";
 import { AuthContext, AuthProvider } from "./src/providers/AuthProvider";
+import Routes from "./src/Routes";
 
 
 const stack = createStackNavigator();
@@ -20,36 +21,40 @@ const BasicDashboardScreen = () => {
     </stack.Navigator>
   )
 }
+// const App = () => {
+//   return (
+//     <AuthProvider>
+//       <AuthContext.Consumer>
+//         {(auth) =>
+//           auth?.isLoggedIn ? (
+//             <NavigationContainer>
+//               <bottom_tab.Navigator>
+//                 < bottom_tab.Screen name="Settings" component={SettingsPage} />
+//                 < bottom_tab.Screen name="Nationalize" component={NationalizePage} />
+
+//               </bottom_tab.Navigator>
+//             </NavigationContainer>
+//           ) : (
+//             <NavigationContainer>
+//               <stack.Navigator>
+//                 < bottom_tab.Screen name="Dashboard" component={BasicDashboardScreen} />
+//               </stack.Navigator>
+//             </NavigationContainer>
+//           )
+//         }
+//       </AuthContext.Consumer>
+//     </AuthProvider>
+
+
+//     // <CounterPage/>
+//   )
+// }
+
+
 const App = () => {
-  return (
-    <AuthProvider>
-      <AuthContext.Consumer>
-        {(auth) =>
-          auth?.isLoggedIn ? (
-            <NavigationContainer>
-              <bottom_tab.Navigator>
-                < bottom_tab.Screen name="Settings" component={SettingsPage} />
-                < bottom_tab.Screen name="Nationalize" component={NationalizePage} />
-
-              </bottom_tab.Navigator>
-            </NavigationContainer>
-          ) : (
-            <NavigationContainer>
-              <stack.Navigator>
-                < bottom_tab.Screen name="Dashboard" component={BasicDashboardScreen} />
-              </stack.Navigator>
-            </NavigationContainer>
-          )
-        }
-      </AuthContext.Consumer>
-    </AuthProvider>
-
-
-    // <CounterPage/>
-  )
+    return (
+        <Routes/>
+    )
 }
-const styles = StyleSheet.create({
-
-})
 
 export default App;
