@@ -1,13 +1,18 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { IAUthContext } from '../providers/AuthProvider';
+import axios from 'axios';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setisLoggedIn] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = (auth: IAUthContext) => {
+    axios.get("https://localhost:3000/health").then((res:any)=>{
+      console.log(res)
+    })
 
     console.log('Username: ', username);
     console.log('Password: ', password);
@@ -43,7 +48,7 @@ const LoginPage = () => {
     return (
       <>
         <Text style={styles.label}> Successfully Logged in brother....</Text>
-        <Button title="Back" onPress={() => { navigate.goBack() }}></Button>
+
       </>
     )
   };

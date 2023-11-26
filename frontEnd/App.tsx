@@ -22,12 +22,6 @@ const BasicDashboardScreen = () => {
 }
 const App = () => {
   return (
-    // <View style={styles.mainContainer}>
-    //   <Text style={styles.textContainer}>Hello World! ওহে দুনিয়া </Text>
-    // </View>
-
-
-
     <AuthProvider>
       <AuthContext.Consumer>
         {(auth) =>
