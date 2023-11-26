@@ -12,7 +12,7 @@ import Search from "./Search";
 
 
 const Drawer = createDrawerNavigator();
-const Stack = createDrawerNavigator();
+
 const Home = () => {
 
     const header = (title, navigation) => ({
@@ -49,20 +49,18 @@ const Home = () => {
         ),
     });
     return (
-        <SafeAreaView style={{
-            flex: 1,
-        }}>
+        <SafeAreaView style={{ flex: 1 }}>
             <Drawer.Navigator
-                drawerContentOptions={{ overlayColor: 'transparent' }}
                 screenOptions={{
                     drawerPosition: "right",
                     drawerActiveBackgroundColor: 'transparent',
                     drawerActiveTintColor: 'black',
-                    drawerStyle: styles.drawerStyle,
-
+                    drawerStyle: {
+                        ...styles.drawerStyle,
+                        overlayColor: 'transparent',
+                    },
                 }}
             >
-
                 <Drawer.Screen
                     name="Search"
                     component={Search}
@@ -73,19 +71,9 @@ const Home = () => {
                     component={Profile}
                     options={({ navigation }) => header('Profile', navigation)}
                 />
-                {/* <Stack.Screen
-                    name="Search"
-                    component={Search}
-                    options={({ navigation }) => header('Search', navigation)}
-                />
-                <Stack.Screen
-                    name="Profile"
-                    component={Profile}
-                    options={({ navigation }) => header('Profile', navigation)}
-                /> */}
 
             </Drawer.Navigator>
-        </SafeAreaView >
+        </SafeAreaView>
     );
 };
 
