@@ -4,7 +4,7 @@ import { CreateListingDto, ReadListingDto, UpdateListingDto } from './dto/listin
 import { ApiBadRequestResponse, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Listing } from 'src/models/listing.model';
 
-@ApiTags('listings')
+@ApiTags('listing API')
 @Controller('listings')
 export class ListingsController {
     constructor(private readonly listingsService: ListingsService) {}

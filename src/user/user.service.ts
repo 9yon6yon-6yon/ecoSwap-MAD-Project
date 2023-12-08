@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDTO, UserCredDTO } from './dto/user.dto';
 import { Users } from 'src/models/user.model';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -48,4 +48,15 @@ export class UserService {
 
         return user;
     }
+
+  async userLogin(userCredDTO: UserCredDTO): Promise<boolean> {
+    const { email, password } = userCredDTO;
+    const user = await this.userRepository.findOne({ where: { email } });
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    return true;
+  }
 }

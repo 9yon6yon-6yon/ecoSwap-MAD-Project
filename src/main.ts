@@ -6,7 +6,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 class APIDocument {
   static setup(app: INestApplication) {
     const options = new DocumentBuilder()
-      .setTitle('MAD API')
+      .setTitle('Eco-Swap API')
       .setDescription('This application exposes some APIs for academic purposes')
       .build();
 

@@ -5,7 +5,7 @@ import { Feedback } from 'src/models/feedback.model';
 import { CreateFeedbackDto, ReadFeedbackDto, UpdateFeedbackDto } from './dto/feedbacks.dto';
 
 
-@ApiTags('feedbacks')
+@ApiTags('Feedback API')
 @Controller('feedbacks')
 export class FeedbacksController {
   constructor(private readonly feedbackService: FeedbacksService) {}
@@ -23,10 +23,6 @@ export class FeedbacksController {
   @Get()
   getFeedbacks(@Query() readFeedbackDto: ReadFeedbackDto): Promise<Feedback[]> {
     return this.feedbackService.getFeedbacks(readFeedbackDto);
-  }
-  @Get('all')
-  getAllFeedbacks(){
-    return this.feedbackService.getAllFeedbacks();
   }
 
   @ApiOperation({ summary: 'Get a feedback by ID' })

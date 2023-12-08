@@ -1,25 +1,33 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateUserDTO, UserCredDTO } from './dto/user.dto';
 import { UserService } from './user.service';
-
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Users } from 'src/models/user.model';
+@ApiTags('User API')
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) { }
-  
-    @Get('email/:email')
-    async getUserByEmail(@Param('email') email: string) {
-        return this.userService.getUserByEmail(email);
-    }
-    @Get(':id')
-    async getUserByID(@Param('id') id: string) {
-        return this.userService.getUserByID(+id);
-    }
-    @Post('login')
-    userLogin(@Body() userCredential: UserCredDTO): any {
-        return this.userService.userAuth(userCredential);
-    }
+
+    @ApiOperation({ summary: 'Create a new user' })
+    @ApiResponse({ status: 201, description: 'The user has been successfully created', type: Users })
     @Post()
-    async createUser(@Body() createUserDTO: CreateUserDTO) {
-        return this.userService.createUser(createUserDTO);
+    createUser(@Body() createUserDTO: CreateUserDTO): Promise<Users> {
+      return this.userService.createUser(createUserDTO);
+    }
+  
+    @ApiOperation({ summary: 'Get a user by ID' })
+    @ApiResponse({ status: 200, description: 'Return the user with the specified ID', type: Users })
+    @ApiResponse({ status: 404, description: 'User not found' })
+    @Get(':id')
+    getUserByID(@Param('id') id: number): Promise<Users> {
+      return this.userService.getUserByID(id);
+    }
+  
+    @ApiOperation({ summary: 'User login' })
+    @ApiResponse({ status: 200, description: 'Login successful.', type: String })
+    @ApiResponse({ status: 401, description: 'Invalid credentials' })
+    @Post('login')
+    userLogin(@Body() userCredDTO: UserCredDTO): Promise<boolean> {
+      return this.userService.userLogin(userCredDTO);
     }
 }

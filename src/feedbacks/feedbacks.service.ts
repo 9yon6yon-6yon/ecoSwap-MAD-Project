@@ -20,10 +20,6 @@ export class FeedbacksService {
   async getFeedbacks(readFeedbackDto: ReadFeedbackDto): Promise<Feedback[]> {
     return this.feedbackRepository.find({ where: readFeedbackDto });
   }
-  async getAllFeedbacks() {
-    return this.feedbackRepository.find();
-  }
-
   async getFeedbackById(feedbackId: number): Promise<Feedback> {
     const feedback = await this.feedbackRepository.findOne({ where: { feedback_id: feedbackId } });
     if (!feedback) {
