@@ -5,12 +5,15 @@ import { UserService } from './user.service';
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) { }
-   
-    @Get(':email')
+  
+    @Get('email/:email')
     async getUserByEmail(@Param('email') email: string) {
         return this.userService.getUserByEmail(email);
     }
-
+    @Get(':id')
+    async getUserByID(@Param('id') id: string) {
+        return this.userService.getUserByID(+id);
+    }
     @Post('login')
     userLogin(@Body() userCredential: UserCredDTO): any {
         return this.userService.userAuth(userCredential);

@@ -1,9 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDTO, UserCredDTO } from './dto/user.dto';
 import { Users } from 'src/models/user.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
     private readonly email: string;
@@ -16,17 +16,42 @@ export class UserService {
         }
         return false;
     }
-    async createUser(user: Users) {
-        const result = this.userRepository.insert(user);
-        return result;
+    // async createUser(user: Users) {
+    //     const email = user.email;
+    //     const password = user.password;
+
+    //     const result = this.userRepository.insert(user);
+    //     return result;
+    // }
+    async createUser(createUserDTO: CreateUserDTO): Promise<Users> {
+        const { email, password } = createUserDTO;
+
+        const newUser = new Users(email, password);
+        await newUser.hashPassword();
+
+        try {
+
+            const result = await this.userRepository.insert(newUser);
+            return newUser;
+        } catch (error) {
+            throw new BadRequestException('User with this email already exists.');
+        }
     }
     async getUserByEmail(email: string): Promise<Users> {
         const user = await this.userRepository.findOne({ where: { email } });
-    
+
         if (!user) {
             throw new NotFoundException(`User with email : ${email} was not found`);
         }
-    
+        return user;
+    }
+    async getUserByID(id: number): Promise<Users> {
+        const user = await this.userRepository.findOne({ where: { id: id } });
+
+        if (!user) {
+            throw new NotFoundException(`User with id : ${id} was not found`);
+        }
+
         return user;
     }
 }
