@@ -16,17 +16,11 @@ export class UserService {
         }
         return false;
     }
-    // async createUser(user: Users) {
-    //     const email = user.email;
-    //     const password = user.password;
 
-    //     const result = this.userRepository.insert(user);
-    //     return result;
-    // }
     async createUser(createUserDTO: CreateUserDTO): Promise<Users> {
-        const { email, password } = createUserDTO;
+        const { name, email, password } = createUserDTO;
 
-        const newUser = new Users(email, password);
+        const newUser = new Users(name, email, password);
         await newUser.hashPassword();
 
         try {

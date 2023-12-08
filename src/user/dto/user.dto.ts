@@ -19,6 +19,13 @@ export class UserCredDTO{
 
 }
 export class CreateUserDTO{
+    @ApiProperty({
+        name: 'name',
+        description: "User's name",
+        type: String,
+        example: 'dev',
+    })
+    readonly name: string;
     @IsEmail()
     @ApiProperty({
         name: 'email',
