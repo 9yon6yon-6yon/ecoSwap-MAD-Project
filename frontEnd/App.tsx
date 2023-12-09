@@ -12,15 +12,15 @@ import { AuthContext, AuthProvider } from "./src/providers/AuthProvider";
 import Routes from "./src/Routes";
 
 
-const stack = createStackNavigator();
-const bottom_tab = createBottomTabNavigator();
-const BasicDashboardScreen = () => {
-  return (
-    <stack.Navigator initialRouteName="Counter" screenOptions={{ headerShown: false }}>
-      <stack.Screen name="Login" component={LoginPage} />
-    </stack.Navigator>
-  )
-}
+// const stack = createStackNavigator();
+// const bottom_tab = createBottomTabNavigator();
+// const BasicDashboardScreen = () => {
+//   return (
+//     <stack.Navigator initialRouteName="Counter" screenOptions={{ headerShown: false }}>
+//       <stack.Screen name="Login" component={LoginPage} />
+//     </stack.Navigator>
+//   )
+// }
 // const App = () => {
 //   return (
 //     <AuthProvider>

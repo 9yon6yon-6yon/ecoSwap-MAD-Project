@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, Button, Image, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const Index = ({ navigation }) => {
     return (
-        <SafeAreaView>
+        <View>
             <View>
                 <Image
                     source={require("../../../assets/splash.png")}
@@ -34,7 +34,7 @@ const Index = ({ navigation }) => {
                     <Text style={{ color: "#ffffff", fontSize: 20 }}>Register</Text>
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

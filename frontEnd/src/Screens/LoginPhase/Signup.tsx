@@ -1,10 +1,69 @@
-import React from 'react';
-import { View, Text, Button, SafeAreaView, Image, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-
+import axios from 'axios';
+import React, { useState } from 'react';
+import { View, Text, Button, Image, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { BACKEND_URL } from '@env';
+import Modal from 'react-native-modal';
 const Signup = ({ navigation }) => {
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
+    const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
+    const SuccessModal = ({ isVisible, onClose }) => {
+        return (
+            <Modal isVisible={isVisible} animationIn="fadeIn" animationOut="fadeOut">
+            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', borderRadius: 10, padding: 20 }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Sucess</Text>
+              <Text style={{ textAlign: 'center' }}>Signed up successfully</Text>
+              <TouchableOpacity onPress={onClose} style={{ marginTop: 20 }}>
+                <Text style={{ color: 'blue', fontSize: 16 }}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+        );
+      };
+      const ErrorModal = ({ isVisible, onClose }) => {
+        return (
+            <Modal isVisible={isVisible} animationIn="fadeIn" animationOut="fadeOut">
+            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', borderRadius: 10, padding: 20 }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Error</Text>
+              <Text style={{ textAlign: 'center' }}>Password and Confirm Password don't match</Text>
+              <TouchableOpacity onPress={onClose} style={{ marginTop: 20 }}>
+                <Text style={{ color: 'blue', fontSize: 16 }}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+        );
+      };
+    const handleRegister = async () => {
+
+      try {
+       if(password === confirmPassword && password!=null){
+        console.log(`${BACKEND_URL}/user`);
+        const response = await axios.post(`${BACKEND_URL}/user`, {
+          name,
+          email,
+          password,
+        });
+        console.log(response.data);
+        setIsSuccessModalVisible(true);
+        navigation.navigate('Login');
+    }
+    else{
+        setIsErrorModalVisible(true);
+    }
+      } catch (error) {
+
+        console.error('Error registering user:', error);
+      }
+    };
+  
     return (
-        <SafeAreaView>
-            <View style={styles.container}>
+        <View>
+              <SuccessModal isVisible={isSuccessModalVisible} onClose={() => setIsSuccessModalVisible(false)} />
+              <ErrorModal isVisible={isErrorModalVisible} onClose={() => setIsErrorModalVisible(false)} />
+            <View>
                 <Image
                     source={require("../../../assets/splash.png")}
                     style={styles.logo}
@@ -23,7 +82,8 @@ const Signup = ({ navigation }) => {
             <View style={styles.container}>
                 <TouchableOpacity
                     style={styles.button2}
-                    onPress={() => navigation.navigate("Number")}>
+                    onPress={handleRegister}>
+                    {/* onPress={() => navigation.navigate("Number")}> */}
                     <Text style={{ color: "#ffffff", fontSize: 20 }}>Register</Text>
                 </TouchableOpacity>
             </View>
@@ -33,12 +93,14 @@ const Signup = ({ navigation }) => {
                     placeholder='Enter name'
                     keyboardType='default'
                     placeholderTextColor='#000000'
-
+                    onChangeText={setName}
+                    value={name}
                     style={{
                         paddingLeft: 20,
                         height: 17,
-                        fontSize: 15,
+                        fontSize: 15,                        
                     }}
+                  
                 />
             </View>
             <View style={styles.textInput}>
@@ -47,7 +109,8 @@ const Signup = ({ navigation }) => {
                     placeholder='Enter e-mail'
                     keyboardType='email-address'
                     placeholderTextColor='#000000'
-
+                    onChangeText={setEmail}
+                    value={email}
                     style={{
                         paddingLeft: 20,
                         // width: 75,
@@ -55,8 +118,8 @@ const Signup = ({ navigation }) => {
                         // top: 379,
                         // left: 57,
                         fontSize: 15,
-
-
+                        
+                        
                     }}
                 />
             </View>
@@ -66,7 +129,8 @@ const Signup = ({ navigation }) => {
                     placeholder='Password'
                     keyboardType='default'
                     placeholderTextColor='#000000'
-
+                    onChangeText={setPassword}
+                    value={password}
                     style={{
                         paddingLeft: 20,
                         // width: 75,
@@ -74,8 +138,8 @@ const Signup = ({ navigation }) => {
                         // top: 379,
                         // left: 57,
                         fontSize: 15,
-
-
+                       
+                        
                     }}
                 />
             </View>
@@ -85,17 +149,18 @@ const Signup = ({ navigation }) => {
                     placeholder='Confirm password'
                     keyboardType='default'
                     placeholderTextColor='#000000'
-
+                    onChangeText={setConfirmPassword}
+                    value={confirmPassword}
                     style={{
                         paddingLeft: 20,
                         height: 17,
                         fontSize: 15,
-
+                        
                     }}
                 />
             </View>
 
-        </SafeAreaView>
+        </View>
     );
 };
 
@@ -152,7 +217,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     textInput1: {
-
+       
         backgroundColor: "#E6E6E6",
         width: 308,
         height: 52,
@@ -161,7 +226,7 @@ const styles = StyleSheet.create({
         borderRadius: 35,
         justifyContent: "center"
     }
-
+   
 
 });
 

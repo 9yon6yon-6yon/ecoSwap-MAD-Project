@@ -1,21 +1,21 @@
 import React from 'react';
-import { View, Text, Button, Image, StyleSheet, TouchableOpacity, TextInput, SafeAreaView } from 'react-native';
+import { View, Text, Button, Image, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
 const Verify = ({ navigation }) => {
     return (
-        <SafeAreaView>
+        <View>
             <View>
                 <Image
-                    source={require("../../../assets//splash.png")}
+                    source={require("../../../assets/splash.png")}
                     style={styles.logo}
                 />
                 <Image
-                    source={require("../../../assets//verify.png")}
+                    source={require("../../../assets/verify.png")}
                     style={styles.img}
                 />
                 <TouchableOpacity onPress={() => navigation.navigate("Number")}>
                     <Image
-                        source={require("../../../assets//back.png")}
+                        source={require("../../../assets/back.png")}
                         style={styles.back}
                     />
                 </TouchableOpacity>
@@ -143,7 +143,7 @@ const Verify = ({ navigation }) => {
                 </View>
 
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

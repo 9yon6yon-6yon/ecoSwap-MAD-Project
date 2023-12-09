@@ -1,18 +1,13 @@
-import { Text, View, StyleSheet } from "react-native";
+import {Text, View } from "react-native";
+import Header from "../Homephase/Header";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Inbox() {
+    const navigation = useNavigation();
     return (
-        <View>
+        <><Header title="Search" navigation={navigation} /><View>
+
             <Text>Inbox</Text>
-        </View>
+        </View></>
     )
 }
-
-const styles = StyleSheet.create({
-
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});

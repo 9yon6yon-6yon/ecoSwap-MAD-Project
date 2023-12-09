@@ -11,13 +11,27 @@ import {
   TextInput
 } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
+import axios from "axios";
+
 
 const Number = ({ navigation }) => {
   const [value, setValue] = useState("");
   const [formattedValue, setFormattedValue] = useState("");
   const [valid, setValid] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
-  const phoneInput = useRef<PhoneInput>(null);
+  const phoneInput = useRef<React.RefObject<PhoneInput>>(null);
+  const handleSendOTP = () => {
+    const isValid: boolean = phoneInput.current?.isValidNumber(value);
+    if (isValid) {
+      // Logic to send OTP to the provided number
+      // Add your OTP sending functionality here
+      alert("Sending OTP to: " + value);
+    } else {
+      // Handle invalid number scenario
+      alert("Invalid phone number");
+    }
+  };
+
   return (
     <View>
       <View>
@@ -39,7 +53,12 @@ const Number = ({ navigation }) => {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.button2}
-          onPress={() => navigation.navigate("Verify")}>
+          onPress={() => {
+            navigation.navigate("Verify");
+            handleSendOTP();
+          }}>
+            
+          
           <Text style={{ color: "#ffffff", fontSize: 20, fontWeight: 400 }}>Send OTP</Text>
         </TouchableOpacity>
       </View>
@@ -73,40 +92,16 @@ const Number = ({ navigation }) => {
       <View>
         <StatusBar barStyle="dark-content" />
         <View style={styles.phoneInput}>
-          {/* <SafeAreaView style={styles.wrapper}>
-            {showMessage && (
-              <View style={styles.message} >
-                <Text>Value : {value}</Text>
-                <Text>Formatted Value : {formattedValue}</Text>
-                <Text>Valid : {valid ? "true" : "false"}</Text>
-              </View>
-            )} */}
           <PhoneInput
             ref={phoneInput}
             defaultValue={value}
             defaultCode="BD"
             layout="first"
-            onChangeText={(text) => {
-              setValue(text);
-            }}
-            onChangeFormattedText={(text) => {
-              setFormattedValue(text);
-            }}
+            onChangeText={(text) => setValue(text)}
             withDarkTheme
             withShadow
             autoFocus
           />
-          {/* <TouchableOpacity
-              // style={styles.button}
-              onPress={() => {
-                const checkValid = phoneInput.current?.isValidNumber(value);
-                setShowMessage(true);
-                setValid(checkValid ? checkValid : false);
-              }}
-            >
-              <Text>Check</Text>
-            </TouchableOpacity> */}
-          {/* </SafeAreaView> */}
         </View>
       </View>
       <Text
@@ -200,7 +195,7 @@ const styles = StyleSheet.create({
 
   message: {
     position: 'absolute',
-    top: 0,
+    top: 400,
     left: 0,
     right: 0,
     bottom: 0,

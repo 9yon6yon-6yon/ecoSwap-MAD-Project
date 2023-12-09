@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 
 export type IAUthContext = {
-    userName: string,
-    setUserName: (userName: string) => void,
+    userId: string,
+    setUserId: (userId: string) => void,
     isLoggedIn: boolean,
     setIsLoggedIn: (isLoggedIn: boolean) => void;
 }
 const AuthContext = React.createContext<IAUthContext | null> (null)
 
 const AuthProvider = (props:any) => {
-    const [userName, setUserName] = useState('');
+    const [userId, setUserId] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     return (
-        <AuthContext.Provider value={{userName, setUserName, isLoggedIn, setIsLoggedIn}}>
+        <AuthContext.Provider value={{userId, setUserId, isLoggedIn, setIsLoggedIn}}>
             {props.children}
         </AuthContext.Provider>
     )

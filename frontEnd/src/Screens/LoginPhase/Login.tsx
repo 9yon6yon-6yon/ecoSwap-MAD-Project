@@ -1,9 +1,45 @@
-import React from 'react';
+import { BACKEND_URL } from '@env';
+import axios from 'axios';
+import React, { useState } from 'react';
 import { View, Text, Button, Image, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-
+import Modal from 'react-native-modal';
 const Login = ({ navigation }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [isErrorModalVisible, setIsErrorModalVisible] = useState(false);
+   
+    const handleLogin = async () => {
+      try {
+        console.log(`${BACKEND_URL}/user/login`);
+        const response = await axios.post(`${BACKEND_URL}/user/login`, {
+          email,
+          password,
+        });
+        console.log(response.data);
+        navigation.navigate('Home');
+
+      } catch (error) {
+        setIsErrorModalVisible(true);
+        console.error('Error logging in user:', error);
+      }
+    };
+    const ErrorModal = ({ isVisible, onClose }) => {
+        return (
+            <Modal isVisible={isVisible} animationIn="fadeIn" animationOut="fadeOut">
+            <View style={{ justifyContent: 'center', alignItems: 'center', backgroundColor: 'white', borderRadius: 10, padding: 20 }}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Error</Text>
+              <Text style={{ textAlign: 'center' }}>Email or Password incorrect</Text>
+              <TouchableOpacity onPress={onClose} style={{ marginTop: 20 }}>
+                <Text style={{ color: 'blue', fontSize: 16 }}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </Modal>
+        );
+      };
+  
     return (
         <View>
+              <ErrorModal isVisible={isErrorModalVisible} onClose={() => setIsErrorModalVisible(false)} />
             <View>
                 <Image
                     source={require("../../../assets/splash.png")}
@@ -23,34 +59,37 @@ const Login = ({ navigation }) => {
             <View style={styles.container}>
                 <TouchableOpacity
                     style={styles.button2}
-                    onPress={() => navigation.navigate("Home")}>
+                    onPress={handleLogin}
+                    // onPress={() => navigation.navigate("Home")}
+                    >
                     <Text style={{ color: "#ffffff", fontSize: 20 }}>Login</Text>
                 </TouchableOpacity>
             </View>
             <Text style={{
-                width: 213,
-                height: 19,
-                top: 735,
-                left: 115,
-                color: "#000000",
-            }}>Are you registered?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
-                <Text style={{
                     width: 213,
                     height: 19,
-                    top: 715.5,
-                    left: 238.5,
-                    color: "#3353FC",
-                    textDecorationLine: "underline"
-                }}>Sign up.</Text>
-            </TouchableOpacity>
+                    top: 735,
+                    left: 115,
+                    color: "#000000",
+                }}>Are you registered?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
+                        <Text style={{
+                            width: 213,
+                            height: 19,
+                            top: 715.5,
+                            left: 238.5,
+                            color: "#3353FC",
+                            textDecorationLine: "underline"
+                        }}>Sign up.</Text>
+                    </TouchableOpacity>
             <View style={styles.textInput}>
                 <TextInput
 
-                    placeholder='Username'
+                    placeholder='Email'
                     keyboardType='default'
                     placeholderTextColor='#000000'
-
+                    onChangeText={setEmail}
+                    value={email}
                     style={{
                         paddingLeft: 20,
                         height: 17,
@@ -64,7 +103,8 @@ const Login = ({ navigation }) => {
                     placeholder='Password'
                     keyboardType='number-pad'
                     placeholderTextColor='#000000'
-
+                    onChangeText={setPassword}
+                    value={password}
                     style={{
                         paddingLeft: 20,
                         height: 17,
@@ -83,7 +123,7 @@ const Login = ({ navigation }) => {
 
             }}>Forgot Password?
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Homepage")}>
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                 <Text style={{
                     width: 228,
                     height: 17,
