@@ -24,13 +24,7 @@ export class CreateListingDto {
         example: 'Product description like this product has this or that',
     })
     readonly description: string;
-    @ApiProperty({
-        name: 'user',
-        description: "ID of the user associated not mendatory",
-        type: Users,
-        example: 1,
-    })
-    readonly user: Users;
+  
 
 }
 export class DeleteListingDto {
