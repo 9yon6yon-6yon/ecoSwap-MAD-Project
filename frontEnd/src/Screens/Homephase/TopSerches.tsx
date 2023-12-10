@@ -79,24 +79,53 @@ const TopSearches = () => {
 
   return (
     <>
-      <ShareModal
+     <ShareModal
         isVisible={isModalVisible}
         closeModal={closeModal}
         product={sharedProduct}
         shareOnSocialMedia={shareOnSocialMedia}
       />
-      <Text
-        style={{
-          left: 40,
-          top: -200,
-          fontSize: 14,
-          fontWeight: "300",
-          width: 100,
-          height: 17,
-        }}
-      >
-        Top Searches
-      </Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text
+          style={{
+            left: 40,
+            top: -200,
+            fontSize: 14,
+            fontWeight: "300",
+            width: 100,
+            height: 17,
+          }}
+        >
+          Top Searches
+        </Text>
+        <Text
+          style={{
+            left: 35,
+            top: -200,
+            fontSize: 14,
+            fontWeight: "300",
+            width: 100,
+            height: 17,
+          }}
+        >
+          All
+          <Ionicons
+            name="enter-outline"
+            size={20}
+            color="blue"
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              bottom: 0,
+              justifyContent: "center",
+            }}
+            onPress={() => {
+              navigation.navigate("AllProducts");
+            }}
+          />
+        </Text>
+      </View>
       <View
         style={{
           flex: 1,
@@ -107,16 +136,22 @@ const TopSearches = () => {
         }}
       >
         <Swiper
-          nextButton={<Ionicons
-            style={{ top: - 140, left: 35 }}
-            name="chevron-forward-circle-outline"
-            size={24}
-            color="black" />}
-          prevButton={<Ionicons
-            style={{ top: - 140, right: 35 }}
-            name="chevron-back-circle-outline"
-            size={24}
-            color="black" />}
+          nextButton={
+            <Ionicons
+              style={{ top: -140, left: 35 }}
+              name="chevron-forward-circle-outline"
+              size={24}
+              color="black"
+            />
+          }
+          prevButton={
+            <Ionicons
+              style={{ top: -140, right: 35 }}
+              name="chevron-back-circle-outline"
+              size={24}
+              color="black"
+            />
+          }
           showsButtons={true}
           showsPagination={false}
           autoplay

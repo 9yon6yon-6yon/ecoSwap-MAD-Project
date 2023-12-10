@@ -9,7 +9,10 @@ import {
 } from "react-native";
 import Header from "./Header";
 import Ionicons from "react-native-vector-icons/Ionicons";
-const Search = ({ navigation }) => {
+import SearchProducts from "./SearchProducts";
+import { useNavigation } from "@react-navigation/native";
+const Search = () => {
+  const navigation = useNavigation();
   return (
     <>
       <Header title="Search" navigation={navigation} />
@@ -32,6 +35,52 @@ const Search = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
+      </View>
+      <View
+        style={{
+          marginTop: 20,
+          justifyContent: "space-between",
+          flexDirection: "row",
+        }}
+      >
+        <Text
+          style={{
+            fontWeight: "300",
+            fontSize: 14.5,
+            marginLeft: 10,
+            color: "black",
+          }}
+        >
+          Searched Products
+        </Text>
+        <Text
+          style={{
+            fontWeight: "300",
+            fontSize: 14.5,
+            color: "black",
+            left: -10,
+          }}
+          onPress={() => { navigation.navigate("AllProducts")
+            
+          }}
+        >
+          All
+          <Ionicons
+            name="enter-outline"
+            size={20}
+            color="blue"
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              bottom: 0,
+              justifyContent: "center",
+            }}
+          />
+        </Text>
+      </View>
+      <View style={{ flex: 1, marginTop: 5 }}>
+        <SearchProducts title="Search" navigation={navigation} />
       </View>
     </>
   );

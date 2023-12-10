@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  Alert,
 } from "react-native";
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
@@ -34,8 +33,11 @@ import Search from "./Screens/Homephase/Search";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Profile from "./Screens/Homephase/Profile";
 import { Header } from "react-native-elements";
+import Cart from "./Screens/Homephase/Cart";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
+// import Settings from "./Homephase/Settings";
+import { Alert } from "react-native";
+import AllProducts from "./Screens/Homephase/AllProducts";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -313,7 +315,16 @@ const Routes = () => {
                     ),
                   }}
                 />
-                {/* <Drawer.Screen
+                <Drawer.Screen
+                  name="AllProducts"
+                  component={AllProducts}
+                  options={{
+                    drawerIcon: ({ color, size }) => (
+                      <Ionicons name="list-sharp" size={20} />
+                    ),
+                  }}
+                />
+                <Drawer.Screen
                   name="Cart"
                   component={Cart}
                   options={{
@@ -322,7 +333,7 @@ const Routes = () => {
                     ),
                   }}
                 />
-                <Drawer.Screen
+                {/* <Drawer.Screen
                   name="Settings"
                   component={Settings}
                   options={{

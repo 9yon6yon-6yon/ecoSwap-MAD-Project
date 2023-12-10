@@ -82,24 +82,56 @@ const TopSearches = () => {
 
   return (
     <>
-      <ShareModal
+       <ShareModal
         isVisible={isModalVisible}
         closeModal={closeModal}
         product={sharedProduct}
         shareOnSocialMedia={shareOnSocialMedia}
       />
-      <Text
-        style={{
-          left: 40,
-          top: -28,
-          fontSize: 14,
-          fontWeight: "300",
-          width: 100,
-          height: 17,
-        }}
-      >
-        Recommended
-      </Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text
+          style={{
+            left: 40,
+            top: -28,
+            fontSize: 14,
+            fontWeight: "300",
+            width: 100,
+            height: 17,
+          }}
+        >
+          Recommended
+        </Text>
+        <Text
+          style={{
+            left: 35,
+            top: -28,
+            fontSize: 14,
+            fontWeight: "300",
+            width: 100,
+            height: 17,
+          }}
+          onPress={() => {
+            navigation.navigate("AllProducts");
+          }}
+        >
+          All
+          <Ionicons
+            name="enter-outline"
+            size={20}
+            color="blue"
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              bottom: 0,
+              justifyContent: "center",
+            }}
+            onPress={() => {
+              navigation.navigate("AllProducts");
+            }}
+          />
+        </Text>
+      </View>
       <View
         style={{
           flex: 1,
