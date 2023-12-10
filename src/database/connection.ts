@@ -1,5 +1,6 @@
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { Cart } from "src/models/cart.model";
 import { Feedback } from "src/models/feedback.model";
 import { Listing } from "src/models/listing.model";
 import { Message } from "src/models/message.model";
@@ -16,7 +17,7 @@ export default (configService: ConfigService): TypeOrmModuleOptions => {
         username: configService.get('DB_USER'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [Users,Listing,Feedback,Request,Message,Subscription,Notification,]
+        entities: [Users,Listing,Feedback,Request,Message,Subscription,Notification,Cart]
 
     }
     return options;

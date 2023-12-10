@@ -10,6 +10,7 @@ import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { FeedbacksModule } from './feedbacks/feedbacks.module';
 import { RequestsModule } from './requests/requests.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { CartModule } from './cart/cart.module';
 import DatabaseConnection from './database/connection';
 
 @Module({
@@ -25,6 +26,7 @@ import DatabaseConnection from './database/connection';
     FeedbacksModule,
     RequestsModule,
     NotificationsModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
