@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Text,
@@ -11,8 +11,36 @@ import Header from "./Header";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SearchProducts from "./SearchProducts";
 import { useNavigation } from "@react-navigation/native";
+import { BACKEND_URL } from "@env";
+import axios from "axios";
 const Search = () => {
   const navigation = useNavigation();
+  const [searchText, setSearchText] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const performSearch = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`${BACKEND_URL}/listings/search`, {
+          params: { keyword: searchText },
+        });
+        setSearchResults(response.data);
+      } catch (error) {
+        console.error('Error searching:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    <SearchProducts title="Search" navigation={navigation} />
+    performSearch();
+
+
+
+
+  }, [searchText]);
+
   return (
     <>
       <Header title="Search" navigation={navigation} />
@@ -23,6 +51,8 @@ const Search = () => {
             keyboardType="default"
             placeholderTextColor="#000000"
             style={styles.input}
+            onChangeText={(text) => setSearchText(text)}
+
           />
         </View>
         <View style={styles.button}>
@@ -60,8 +90,8 @@ const Search = () => {
             color: "black",
             left: -10,
           }}
-          onPress={() => { navigation.navigate("AllProducts")
-            
+          onPress={() => {
+            navigation.navigate("AllProducts")
           }}
         >
           All
@@ -80,7 +110,11 @@ const Search = () => {
         </Text>
       </View>
       <View style={{ flex: 1, marginTop: 5 }}>
-        <SearchProducts title="Search" navigation={navigation} />
+        {loading ? (
+                 <Text>Nothing to show</Text> 
+        ) : (
+       <SearchProducts title="Search" navigation={navigation} />
+        )}
       </View>
     </>
   );

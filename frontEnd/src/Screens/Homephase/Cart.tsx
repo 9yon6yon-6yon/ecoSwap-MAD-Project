@@ -12,9 +12,22 @@ import { BACKEND_URL } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
+
 const Cart = ( ) => {
   const navigation = useNavigation();
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([
+    {
+      id: 1,
+      title: "Product 1",
+      description: "Description for Product 1",
+    },
+    {
+      id: 2,
+      title: "Product 3",
+      description: "Description for Product 2",
+    },
+  ]);
+
   const handleDelete = async (itemId) => {
     try {
       await axios.delete(`${BACKEND_URL}/carts/${itemId}`);
@@ -42,15 +55,15 @@ const Cart = ( ) => {
 
   const renderCartItems = () => {
     return cartItems.map((item) => (
-      <View key={item.cart_id} style={styles.productCard}>
+      <View key={item.id} style={styles.productCard}>
         <TouchableOpacity
           style={styles.deleteIcon}
-          onPress={() => handleDelete(item.cart_id)}
+          onPress={() => handleDelete(item.id)}
         >
           <Ionicons name="trash-outline" size={24} color="red" />
         </TouchableOpacity>
-        <Text>{item.user_id}</Text>
-        <Text>{item.listing_id}</Text>
+        <Text>{item.title}</Text>
+        <Text>{item.description}</Text>
       </View>
     ));
 

@@ -19,80 +19,80 @@ const products = [
     id: 1,
     title: "Product 1",
     description: "Description for Product 1",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png",
+
   },
   {
     id: 2,
     title: "Product 3",
     description: "Description for Product 2",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 3,
     title: "Product 3",
     description: "Description for Product 4",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 4,
     title: "Product 4",
     description: "Description for Product 4",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 5,
     title: "Product 5",
     description: "Description for Product 5",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 6,
     title: "Product 6",
     description: "Description for Product 6",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 7,
     title: "Product 7",
     description: "Description for Product 7",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 8,
     title: "Product 8",
     description: "Description for Product 8",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 9,
     title: "Product 9",
     description: "Description for Product 9",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 10,
     title: "Product 10",
     description: "Description for Product 10",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
   {
     id: 11,
     title: "Product 11",
     description: "Description for Product 11",
-    image: "./splash.png", // Sample image URL
-    // Other product details
+    image: "./splash.png", 
+   
   },
-  // Add more products here
+
 ];
 
 const ProductCard = ({ product }: { product: Product }) => {
@@ -103,16 +103,14 @@ const ProductCard = ({ product }: { product: Product }) => {
   const [givenRating, setGivenRating] = useState(null);
 
   const handleRatingChange = (value) => {
-    // Simulating storing the rating in a local state
+
     setGivenRating(value);
-    // Here you can send the rating to your backend/database
-    // For example, make an API call to store the rating
+
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [sharedProduct, setSharedProduct] = useState(null);
 
-  // ... (other parts of your code)
 
   const handleShare = (product) => {
     setSharedProduct(product);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,8 @@ import {
   Dimensions,
   TouchableOpacity,
 } from "react-native";
-import Header from "./Header";
-import { useNavigation } from "@react-navigation/native";
+
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ShareModal from "./ShareModal";
 import Ratings from "./Ratings";
@@ -99,19 +99,18 @@ const ProductCard = ({ product }: { product: Product }) => {
   function handleAddToCart(product: Product): void {
     throw new Error("Function not implemented.");
   }
+ 
   const [givenRating, setGivenRating] = useState(null);
 
   const handleRatingChange = (value) => {
-    // Simulating storing the rating in a local state
     setGivenRating(value);
-    // Here you can send the rating to your backend/database
-    // For example, make an API call to store the rating
+
   };
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [sharedProduct, setSharedProduct] = useState(null);
 
-  // ... (other parts of your code)
+
 
   const handleShare = (product) => {
     setSharedProduct(product);
@@ -135,7 +134,6 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <> 
-    <Header title="Search" navigation={navigation} />
       <ShareModal
         isVisible={isModalVisible}
         closeModal={closeModal}
@@ -183,7 +181,7 @@ const ProductList = () => {
     <View>
       <FlatList
         data={products}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item, index) => (item.id ? item.id.toString() : index.toString())}
         numColumns={2}
         renderItem={({ item }) => <ProductCard product={item} />}
       />
@@ -265,9 +263,10 @@ const styles = StyleSheet.create({
   },
 });
 const SearchProducts = () => {
+  const route = useRoute();
   return (
     <View style={{ flex: 1 }}>
-      <ProductList />
+      <ProductList/>
     </View>
   );
 };

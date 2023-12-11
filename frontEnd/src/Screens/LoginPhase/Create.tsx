@@ -18,12 +18,15 @@ import DocumentPicker from "react-native-document-picker";
 import * as ImagePicker from "expo-image-picker";
 import { BACKEND_URL } from "@env";
 import axios from "axios";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
 
 const Create = () => {
   const navigation = useNavigation();
   const [pName, setpName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState("");
   const [isSuccessModalVisible, setIsSuccessModalVisible] = useState(false);
 
   const SuccessModal = ({ isVisible, onClose }) => {
@@ -101,32 +104,18 @@ const Create = () => {
         ></TextInput>
 
         <TouchableOpacity onPress={pickImage} containerStyle={Styles.white}>
-          <FontAwesome5
-            style={{ left: 50 }}
-            name="plus"
-            size={20}
-            color="white"
-          />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200 }}
+          <View style={Styles.imageInputContainer}>
+            <TextInput
+              value={imageName}
+              onChangeText={(text) => setImageName(text)}
+              placeholder="Enter image name"
+              placeholderTextColor={'white'}
+              style={Styles.imageInput}
             />
-          )}
-        </TouchableOpacity>
-        <TouchableOpacity onPress={pickImage} containerStyle={Styles.white2}>
-          <FontAwesome5
-            style={{ left: 78 }}
-            name="plus"
-            size={20}
-            color="white"
-          />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200 }}
-            />
-          )}
+            <TouchableOpacity onPress={pickImage} style={Styles.addButton}>
+              <Ionicons name="add" style={Styles.addButtonText} />
+            </TouchableOpacity>
+          </View>
         </TouchableOpacity>
 
         <View style={Styles.buttonContainer}>
@@ -191,23 +180,13 @@ const Styles = StyleSheet.create({
 
   white: {
     backgroundColor: "#D9D9D9",
-    width: 150,
-    height: 71,
-    borderRadius: 10,
+    width: 305,
+    height: 45,
+    borderRadius: 20,
     justifyContent: "center",
     alignContent: "center",
     bottom: 140,
-    right: 77,
-  },
-  white2: {
-    backgroundColor: "#D9D9D9",
-    width: 153,
-    height: 72,
-    borderRadius: 10,
-    bottom: 211,
-    left: 77,
-    justifyContent: "center",
-    alignContent: "center",
+    marginTop:100
   },
 
   buttonContainer: {
@@ -249,5 +228,39 @@ const Styles = StyleSheet.create({
     borderRadius: 5,
     elevation: 10,
     shadowColor: "red",
+  },
+  
+addButtonText: {
+    color: "black",
+    fontSize: 24,
+    justifyContent: "center",
+    alignItems: "center",
+    top: -3,
+  },
+imageInputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+ imageInput: {
+    flex: 1,
+    backgroundColor: "#034c71",
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    marginRight: 10,
+    height: 40,
+    top: 10
+    
+  },
+addButton: {
+    backgroundColor: "white",
+    borderRadius: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 40,
+    top:10,
+    left:-2
   },
 });
