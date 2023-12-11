@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Listing } from 'src/models/listing.model';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CreateListingDto, ReadListingDto, UpdateListingDto } from './dto/listings.dto';
 
 
@@ -25,6 +25,14 @@ export class ListingsService {
     async getAllListings(): Promise<Listing[]> {
         return this.listingRepository.find();
     }
+    async searchListingsByKeyword(keyword: string): Promise<Listing[]> {
+        return this.listingRepository.find({
+          where: [
+            { product_name: Like(`%${keyword}%`) },
+            { description: Like(`%${keyword}%`) },
+          ],
+        });
+      }
     async getListingById(id: number): Promise<Listing> {
         const listing = await this.listingRepository.findOne({ where: { listingid: id } });
         if (!listing) {

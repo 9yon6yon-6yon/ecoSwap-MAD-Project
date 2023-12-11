@@ -27,6 +27,12 @@ export class ListingsController {
     getAllListings(){
       return this.listingsService.getAllListings();
     }
+    @ApiOperation({ summary: 'Get all listings matches search criteria' })
+    @ApiResponse({ status: 200, description: 'Return a list of listings', type: Listing, isArray: true })
+    @Get('search')
+    async searchListings(@Query('keyword') keyword: string) {
+      return this.listingsService.searchListingsByKeyword(keyword);
+    }
   
   
     @ApiOperation({ summary: 'Get a listing by ID' })
